@@ -23,11 +23,11 @@ Conjunto::Conjunto(int tamanho):
 }
 QString Conjunto::getConjunto() const{
     int pos;
-    QString saida = "{";
+    QString saida = "{ ";
     for(pos = 0; pos < indiceOcupacao - 1; pos++){
         saida += QString::number(*(array+pos)) + " , ";
     }
-    saida += QString::number(*(array+pos)) + " } ";
+    saida += QString::number(*(array+pos)) + " }";
     return saida;
 }
 bool Conjunto::buscar(int elemento) const{
@@ -44,17 +44,20 @@ void Conjunto::incluirElemento(int elemento){
     indiceOcupacao++;
 }
     Conjunto * Conjunto::uniao(Conjunto const * const pointer){
+
         int tam = this->indiceOcupacao + pointer->indiceOcupacao, i, j;
         Conjunto *Cresult = new Conjunto(tam);
         for(i = 0; i < this->indiceOcupacao; i++){
             for(j = 0; j < pointer->indiceOcupacao and *(this->array + i) != *(pointer->array + j); j++);
             if(j == pointer->indiceOcupacao){
+
                 Cresult->incluirElemento(*(this->array + i));
             }
         }
         for(i = 0; i < pointer->indiceOcupacao; i++){
             for(j = 0; j < this->indiceOcupacao and *(this->array + j) != *(pointer->array + i); j++);
             if(j == this->indiceOcupacao){
+
                 Cresult->incluirElemento(*(pointer->array + i));
             }
         }
@@ -62,12 +65,15 @@ void Conjunto::incluirElemento(int elemento){
             for(j = 0; j < pointer->indiceOcupacao and *(this->array + i) != *(pointer->array + j); j++);
             if(j < pointer->indiceOcupacao){
                 // tem nos dois
+
                 Cresult->incluirElemento(*(this->array + i));
             }
         }
+
         return Cresult;
     }
     Conjunto * Conjunto::interseccao(Conjunto const * const pointer){
+        bool vrf = false;
         int tam = this->indiceOcupacao + pointer->indiceOcupacao, i, j;
         Conjunto *Cresult = new Conjunto(tam);
         for(i = 0; i < this->indiceOcupacao; i++){
@@ -75,19 +81,28 @@ void Conjunto::incluirElemento(int elemento){
             if(j < pointer->indiceOcupacao){
                 // tem nos dois
                 Cresult->incluirElemento(*(this->array + i));
+                vrf  = true;
             }
         }
-        return Cresult;
+        if(!vrf)throw QString ("Conjunto vazio { }");
+        else{
+            return Cresult;
+        }
     }
     Conjunto * Conjunto::diferenca(Conjunto const * const pointer){
+        bool vrf = false;
         int tam = this->indiceOcupacao + pointer->indiceOcupacao, i, j;
         Conjunto *Cresult = new Conjunto(tam);
         for(i = 0; i < this->indiceOcupacao; i++){
             for(j = 0; j < pointer->indiceOcupacao and *(this->array + i) != *(pointer->array + j); j++);
             if(j == pointer->indiceOcupacao){
                 Cresult->incluirElemento(*(this->array + i));
+                vrf = true;
             }
         }
-        return Cresult;
+        if(!vrf) throw QString ("Conjunto vazio { }");
+        else{
+            return Cresult;
+        }
     }
 }
