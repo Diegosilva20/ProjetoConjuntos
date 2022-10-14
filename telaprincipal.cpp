@@ -65,6 +65,7 @@ void TelaPrincipal::on_pushButtonUniao_clicked()
         CC = CA->uniao(CB);
         ui->lineEditResultado->setText(CC->getConjunto());
         ui->lineEditResultado->setEnabled(true);
+
     } catch (QString &erro) {
         QMessageBox::information(this,"ERRO DO SISTEMA",erro);
     } catch(std::bad_alloc &erro){
@@ -118,15 +119,21 @@ void TelaPrincipal::on_pushButtonCBDiferencaCA_clicked()
 void TelaPrincipal::on_pushButtonIncluirCA_clicked()
 {
     try {
+        QString vrf = ui->lineEditIncluirCA->text();
         int elemento = ui->lineEditIncluirCA->text().toInt();
-        CA->incluirElemento(elemento);
-        ui->lineEditSaidaCA->setText(CA->getConjunto());
-        ui->lineEditIncluirCA->clear();
-        ui->lineEditSaidaCA->setEnabled(true);
-        ui->pushButtonUniao->setEnabled(true);
-        ui->pushButtonIntersecao->setEnabled(true);
-        ui->pushButtonCADiferencaCB->setEnabled(true);
-        ui->pushButtonCBDiferencaCA->setEnabled(true);
+        if(vrf.isEmpty()){
+            ui->lineEditIncluirCA->setText(vrf);
+        }
+        else{
+            CA->incluirElemento(elemento);
+            ui->lineEditSaidaCA->setText(CA->getConjunto());
+            ui->lineEditIncluirCA->clear();
+            ui->lineEditSaidaCA->setEnabled(true);
+            ui->pushButtonUniao->setEnabled(true);
+            ui->pushButtonIntersecao->setEnabled(true);
+            ui->pushButtonCADiferencaCB->setEnabled(true);
+            ui->pushButtonCBDiferencaCA->setEnabled(true);
+        }
     } catch (QString &erro) {
         QMessageBox::information(this,"ERRO DO SISTEMA",erro);
     } catch(std::bad_alloc &erro){
@@ -138,16 +145,22 @@ void TelaPrincipal::on_pushButtonIncluirCA_clicked()
 void TelaPrincipal::on_pushButtonIncluirCB_clicked()
 {
     try {
+        QString vrf = ui->lineEditIncluirCB->text();
         int elemento = ui->lineEditIncluirCB->text().toInt();
-        CB->incluirElemento(elemento);
-        ui->lineEditIncluirCB->clear();
-        ui->lineEditSaidaCB->setText(CB->getConjunto());
-        ui->lineEditIncluirCA->clear();
-        ui->lineEditSaidaCB->setEnabled(true);
-        ui->pushButtonUniao->setEnabled(true);
-        ui->pushButtonIntersecao->setEnabled(true);
-        ui->pushButtonCADiferencaCB->setEnabled(true);
-        ui->pushButtonCBDiferencaCA->setEnabled(true);
+        if(vrf.isEmpty()){
+            ui->lineEditIncluirCB->setText(vrf);
+        }
+        else{
+            CB->incluirElemento(elemento);
+            ui->lineEditIncluirCB->clear();
+            ui->lineEditSaidaCB->setText(CB->getConjunto());
+            ui->lineEditIncluirCA->clear();
+            ui->lineEditSaidaCB->setEnabled(true);
+            ui->pushButtonUniao->setEnabled(true);
+            ui->pushButtonIntersecao->setEnabled(true);
+            ui->pushButtonCADiferencaCB->setEnabled(true);
+            ui->pushButtonCBDiferencaCA->setEnabled(true);
+        }
     } catch (QString &erro) {
         QMessageBox::information(this,"ERRO DO SISTEMA",erro);
     } catch(std::bad_alloc &erro){
